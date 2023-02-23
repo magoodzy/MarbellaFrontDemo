@@ -1,0 +1,14 @@
+
+<ng-container *ngIf="hideNavFoot">
+    <app-navbar class="printNone"></app-navbar>
+</ng-container>
+
+<router-outlet></router-outlet>
+
+<ng-container *ngIf="hideNavFoot">
+    <app-footer class="printNone"></app-footer>
+</ng-container>
+
+<div class="fixedCode px-3 py-1 printNone">
+    <h4 class="m-0">##{{getCode()}}</h4>
+</div>

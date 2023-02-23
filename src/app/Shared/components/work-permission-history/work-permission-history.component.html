@@ -1,0 +1,350 @@
+  <div class="container-fluid">
+    <div class="row d-flex align-items-center justify-content-center p-0 p-md-5">
+      <div class="col-12 col-md-5 col-lg-3">
+        <div  class="mb-3">
+          <label  class="form-label text-primary">Company </label>
+          <select (change)="getAllWorkPermissions(company.value);getUsersSameDept();"   #company class="form-select" aria-label="Default select example">
+              <option [selected]="comp.id==companyId" *ngFor="let comp of allComps" [value]="comp.id">{{comp.name}}</option>
+              </select>
+      </div>
+      </div>
+    </div>
+  </div>
+<p-table id="table" #dt [value]="customer" [(selection)]="selectedCustomers" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true"
+[rows]="50" [showCurrentPageReport]="true"  [rowsPerPageOptions]="[10,50,100,200,500,1000,2000,3000,pageLength]"  [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"  [loading]="loading" responsiveLayout="scroll"
+currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" paginatorPosition="both"
+[filterDelay]="0" [globalFilterFields]="['createdAt','arabicName','reqDate','subCode','reqId','first_punch','username','total_time']">
+<ng-template pTemplate="caption">
+
+  <div class="table-header mb-4 mb-md-0 d-md-flex justify-content-md-end align-items-md-center">
+
+
+
+      <div>
+        <button class="btn btn-outline-secondary" (click)="this.sharedService.exportExcel('Work Permissions')">Export To Excel</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template pTemplate="header">
+  <tr >
+
+
+    <th pSortableColumn="id">
+      <div class="flex justify-content-between align-items-center">
+          Actions <br> <span class="arabicFont">أوامر</span><br>
+          <p-sortIcon field="id"></p-sortIcon>
+          <p-columnFilter type="text" field="id" display="menu" class="ml-auto"></p-columnFilter>
+      </div>
+    </th>
+
+      <th pSortableColumn="id">
+          <div class="flex justify-content-between align-items-center">
+              ID <br> <span class="arabicFont">كود</span><br>
+              <p-sortIcon field="id"></p-sortIcon>
+              <p-columnFilter type="text" field="id" display="menu" class="ml-auto"></p-columnFilter>
+          </div>
+      </th>
+      <th pSortableColumn="requisterName">
+        <div class="flex justify-content-between align-items-center">
+          Requester <br> <span class="arabicFont">الاسم</span><br>
+            <p-sortIcon field="requisterName"></p-sortIcon>
+            <p-columnFilter type="text" field="requisterName" display="menu" class="ml-auto"></p-columnFilter>
+        </div>
+      </th>
+      <th pSortableColumn="type">
+        <div class="flex justify-content-between align-items-center">
+          Type <br> <span class="arabicFont">النوع</span><br>
+            <p-sortIcon field="type"></p-sortIcon>
+            <p-columnFilter type="text" field="type" display="menu" class="ml-auto"></p-columnFilter>
+        </div>
+      </th>
+      <th pSortableColumn="companyName">
+        <div class="flex justify-content-between align-items-center">
+          Company <br> <span class="arabicFont">الشركة</span><br>
+            <p-sortIcon field="companyName"></p-sortIcon>
+            <p-columnFilter type="text" field="companyName" display="menu" class="ml-auto"></p-columnFilter>
+        </div>
+      </th>
+
+      <th pSortableColumn="workDetails">
+        <div class="flex justify-content-between align-items-center">
+          Work Details <br> <span class="arabicFont">العمل بالتفصيل</span><br>
+            <p-sortIcon field="workDetails"></p-sortIcon>
+            <p-columnFilter type="text" field="workDetails" display="menu" class="ml-auto"></p-columnFilter>
+        </div>
+      </th>
+      <th pSortableColumn="workDetails">
+        <div class="flex justify-content-between align-items-center">
+          Work Requirements <br> <span class="arabicFont">متطلبات العمل</span><br>
+            <p-sortIcon field="workDetails"></p-sortIcon>
+            <p-columnFilter type="text" field="workDetails" display="menu" class="ml-auto"></p-columnFilter>
+        </div>
+      </th>
+      <th pSortableColumn="workSupervisor">
+        <div class="flex justify-content-between align-items-center">
+          Supervisor <br> <span class="arabicFont">المشرف</span><br>
+            <p-sortIcon field="workSupervisor"></p-sortIcon>
+            <p-columnFilter type="text" field="workSupervisor" display="menu" class="ml-auto"></p-columnFilter>
+        </div>
+      </th>
+
+      <th pSortableColumn="numberOfWorkers">
+        <div class="flex justify-content-between align-items-center">
+          Number Of Workers <br> <span class="arabicFont"> عدد العمال</span><br>
+            <p-sortIcon field="numberOfWorkers"></p-sortIcon>
+            <p-columnFilter type="text" field="numberOfWorkers" display="menu" class="ml-auto"></p-columnFilter>
+        </div>
+      </th>
+      <th pSortableColumn="workManager">
+        <div class="flex justify-content-between align-items-center">
+            Manager <br> <span class="arabicFont">مسؤول المشروع</span><br>
+            <p-sortIcon field="workManager"></p-sortIcon>
+            <p-columnFilter type="text" field="workManager" display="menu" class="ml-auto"></p-columnFilter>
+        </div>
+      </th>
+
+      <th pSortableColumn="workPlace">
+        <div class="flex justify-content-between align-items-center">
+          Work Place <br> <span class="arabicFont">مكان العمل</span><br>
+            <p-sortIcon field="workPlace"></p-sortIcon>
+            <p-columnFilter type="text" field="workPlace" display="menu" class="ml-auto"></p-columnFilter>
+        </div>
+      </th>
+      <th pSortableColumn="permissionFrom">
+        <div class="flex justify-content-between align-items-center">
+          Date From <br> <span class="arabicFont">وقت العمل من</span><br>
+            <p-sortIcon field="permissionFrom"></p-sortIcon>
+            <p-columnFilter type="text" field="permissionFrom" display="menu" class="ml-auto"></p-columnFilter>
+        </div>
+      </th>
+      <th pSortableColumn="permissionTo">
+        <div class="flex justify-content-between align-items-center">
+          Date To <br> <span class="arabicFont">وقت العمل إلى</span><br>
+            <p-sortIcon field="permissionTo"></p-sortIcon>
+            <p-columnFilter type="text" field="permissionTo" display="menu" class="ml-auto"></p-columnFilter>
+        </div>
+      </th>
+      <th pSortableColumn="qaStatus">
+        <div class="flex justify-content-between align-items-center">
+          QA Status<br> <span class="arabicFont">قرار الجودة</span><br>
+            <p-sortIcon field="qaStatus"></p-sortIcon>
+            <p-columnFilter type="text" field="qaStatus" display="menu" class="ml-auto"></p-columnFilter>
+        </div>
+      </th>
+      <th pSortableColumn="hseStatus">
+        <div class="flex justify-content-between align-items-center">
+          HSE Status<br> <span class="arabicFont">قرار ادارة الأمان</span><br>
+            <p-sortIcon field="hseStatus"></p-sortIcon>
+            <p-columnFilter type="text" field="hseStatus" display="menu" class="ml-auto"></p-columnFilter>
+        </div>
+      </th>
+      <th pSortableColumn="siteStatus">
+        <div class="flex justify-content-between align-items-center">
+          Site Status<br> <span class="arabicFont">قرار مدير المنطقة</span><br>
+            <p-sortIcon field="siteStatus"></p-sortIcon>
+            <p-columnFilter type="text" field="siteStatus" display="menu" class="ml-auto"></p-columnFilter>
+        </div>
+      </th>
+      <th pSortableColumn="qaApprovedBy">
+        <div class="flex justify-content-between align-items-center">
+          QA Approved By<br> <span class="arabicFont">موافقة الجودة</span><br>
+            <p-sortIcon field="qaApprovedBy"></p-sortIcon>
+            <p-columnFilter type="text" field="qaApprovedBy" display="menu" class="ml-auto"></p-columnFilter>
+        </div>
+      </th>
+
+      <th pSortableColumn="hseApprovedBy">
+        <div class="flex justify-content-between align-items-center">
+          HSE Approved By<br> <span class="arabicFont">موافقة ادارة الأمان</span><br>
+            <p-sortIcon field="hseApprovedBy"></p-sortIcon>
+            <p-columnFilter type="text" field="hseApprovedBy" display="menu" class="ml-auto"></p-columnFilter>
+        </div>
+      </th>
+
+      <th pSortableColumn="siteApprovedBy">
+        <div class="flex justify-content-between align-items-center">
+          Site Approved By<br> <span class="arabicFont">موافقة ادارة المصنع</span><br>
+            <p-sortIcon field="siteApprovedBy"></p-sortIcon>
+            <p-columnFilter type="text" field="siteApprovedBy" display="menu" class="ml-auto"></p-columnFilter>
+        </div>
+      </th>
+
+      <th pSortableColumn="endDate">
+        <div class="flex justify-content-between align-items-center">
+          End Date <br> <span class="arabicFont">وقت نهاية العمل</span><br>
+            <p-sortIcon field="endDate"></p-sortIcon>
+            <p-columnFilter type="text" field="endDate" display="menu" class="ml-auto"></p-columnFilter>
+        </div>
+      </th>
+
+      <th *ngIf="type=='HSE'" pSortableColumn="Redirect">
+        <ng-container *ngIf="permission.getManagerPermissions(code,dept,level)">
+          <div class="flex justify-content-between align-items-center">
+            Redirect To <br> <span class="arabicFont">توجيه الموافقة إلى</span><br>
+              <p-sortIcon field="Redirect"></p-sortIcon>
+              <p-columnFilter type="text" field="Redirect" display="menu" class="ml-auto"></p-columnFilter>
+          </div>
+        </ng-container>
+      </th>
+
+
+
+
+
+
+
+
+  </tr>
+</ng-template>
+<ng-template pTemplate="body" let-customer >
+  <tr [ngClass]="customer.qaStatus=='Closed' || customer.hseStatus=='Closed' || customer.siteStatus=='Closed'?'text-success':''" class="font-bold p-selectable-row" >
+
+
+    <td >
+      <div class="d-flex justify-content-between align-items-center">
+
+      <!-- <span class="p-column-title">Department</span> -->
+      <span  class="image-text">
+        <div class="btn-group">
+
+          <button style="box-shadow: none;" type="button" class="btn dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+            <svg  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+              <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+            </svg>
+          </button>
+          <ul style="font-size: 12px; min-width: 2rem;" class="dropdown-menu">
+            <ng-container *ngIf="type=='QA'">
+              <li><a (click)="openApp(customer,'QA')"  class="dropdown-item text-success">QA Actions</a></li>
+            </ng-container>
+            <ng-container *ngIf="type=='HSE'">
+              <li><a (click)="openApp(customer,'HSE')"  class="dropdown-item text-success">HSE Actions</a></li>
+            </ng-container>
+            <!-- <ng-container >
+              <li><a (click)="appRej(customer,'Site','Approved')" class="dropdown-item text-success">Site Approve</a></li>
+              <li><a (click)="appRej(customer,'Site','Pending')" class="dropdown-item ">Site Pend</a></li>
+              <li><a (click)="appRej(customer,'Site','Rejected')" class="dropdown-item text-danger">Site Reject</a></li>
+              <li><a (click)="appRej(customer,'Site','Closed')" class="dropdown-item text-primary">Site Close</a></li>
+            </ng-container> -->
+
+
+          </ul>
+        </div>
+      </span>
+    </div>
+  </td>
+
+
+      <td pFrozenColumn>
+          <!-- <span class="p-column-title">Name</span> -->
+          {{customer.id}}
+      </td>
+      <td pFrozenColumn>
+        <!-- <span class="p-column-title">Name</span> -->
+        {{customer.requisterName}}
+    </td>
+    <td pFrozenColumn>
+      <!-- <span class="p-column-title">Name</span> -->
+      {{customer.type}}
+    </td>
+    <td pFrozenColumn>
+      <!-- <span class="p-column-title">Name</span> -->
+      {{customer.companyName}}
+    </td>
+    <td pFrozenColumn>
+      <!-- <span class="p-column-title">Name</span> -->
+      <button (click)="getDetails(customer)" style="font-size:9px;font-style:italic" class="btn btn-outline-secondary">Details</button>
+    </td>
+    <td pFrozenColumn>
+      <!-- <span class="p-column-title">Name</span> -->
+      <button (click)="getRequirements(customer)" style="font-size:9px;font-style:italic" class="btn btn-outline-primary">Requirements</button>
+    </td>
+    <td>
+      <!-- <span class="p-column-title">Name</span> -->
+      {{customer.workSupervisor}}
+    </td>
+    <td>
+      <!-- <span class="p-column-title">Name</span> -->
+      {{customer.numberOfWorkers}}
+    </td>
+    <td>
+      <!-- <span class="p-column-title">Name</span> -->
+      {{customer.workManager}}
+    </td>
+
+    <td>
+      <!-- <span class="p-column-title">Name</span> -->
+      {{customer.workPlace}}
+    </td>
+    <td>
+      <!-- <span class="p-column-title">Name</span> -->
+      {{customer.permissionFrom.split('T')[0]}}, {{customer.permissionFrom.split('T')[1].split('.')[0]}}
+    </td>
+    <td>
+      <!-- <span class="p-column-title">Name</span> -->
+      {{customer.permissionTo.split('T')[0]}}, {{customer.permissionTo.split('T')[1].split('.')[0]}}
+    </td>
+    <td style="font-weight: bold;font-style: italic;" [ngClass]="customer.qaStatus=='Rejected'?'text-danger':customer.qaStatus=='Approved'?'text-success':''">
+      <!-- <span class="p-column-title">Name</span> -->
+      {{customer.qaStatus}}
+    </td>
+    <td style="font-weight: bold;font-style: italic;" [ngClass]="customer.hseStatus=='Rejected'?'text-danger':customer.hseStatus=='Approved'?'text-success':''">
+      <!-- <span class="p-column-title">Name</span> -->
+      {{customer.hseStatus}}
+    </td>
+    <td style="font-weight: bold;font-style: italic;" [ngClass]="customer.siteStatus=='Rejected'?'text-danger':customer.siteStatus=='Approved'?'text-success':''">
+      <!-- <span class="p-column-title">Name</span> -->
+      {{customer.siteStatus}}
+    </td>
+    <td>
+      <!-- <span class="p-column-title">Name</span> -->
+      {{customer.qaApprovedByName}}
+    </td>
+    <td>
+      <!-- <span class="p-column-title">Name</span> -->
+      {{customer.hseApprovedByName}}
+    </td>
+    <td>
+      <!-- <span class="p-column-title">Name</span> -->
+      {{customer.siteApprovedByName}}
+    </td>
+
+    <td>
+      <!-- <span class="p-column-title">Name</span> -->
+      {{customer.endDate.split('T')[0]}},{{customer.endDate.split('T')[1].split('.')[0]}}
+    </td>
+    <td *ngIf="type=='HSE'">
+      <ng-container *ngIf="permission.getManagerPermissions(code,dept,level)">
+        <select [disabled]="customer.siteStatus!='Pending'" (change)="redirectTicketRequest(customer,redirectTicketUser.value)" #redirectTicketUser style="font-size: 10px !important;" class="form-select w-100" aria-label="Default select example">
+          <option selected disabled value="">Redirect Action To</option>
+          <option *ngFor="let user of userInSameDepts" [value]="user.subCode">{{user.userName}} - {{user.subCode}}</option>
+        </select>
+      </ng-container>
+
+    </td>
+
+
+
+  </tr>
+</ng-template>
+<ng-template pTemplate="emptymessage">
+
+
+  <tr *ngIf="isErrMsg">
+      <td colspan="8">No Data found.</td>
+  </tr>
+</ng-template>
+
+</p-table>
+
+
+
+<!-- <mat-paginator [length]="pageLength"
+            [pageSize]="pageSize"
+            [pageSizeOptions]="[5,10,25,50,75,100,200,300,pageLength]"
+            [pageIndex]="pageIndex"
+            (page)="getServerData($event)"
+            aria-label="Select page">
+</mat-paginator> -->
+
+

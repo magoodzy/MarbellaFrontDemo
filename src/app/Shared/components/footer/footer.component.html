@@ -1,0 +1,42 @@
+<footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class=" col-12 col-md-4  pt-3">
+          <h5 class="headin5_amrc col_white_amrc">      <a class="navbar-brand text-center" (click)="this.router.navigate([''])">
+            <!-- <img width="100" src="./../../../../assets/images/Marbella-For-Food-Industry-Egypt-5667-1585127833 (1).png"> -->
+            <img  *ngIf="CompId!=3" class="cursor-pointer" width="100" src="./../../../../assets/images/Marbella-For-Food-Industry-Egypt-5667-1585127833 (1).png">
+            <img  *ngIf="CompId==3" class="cursor-pointer" width="100" src="./../../../../assets/images/alfa.png">
+
+          </a>
+          </h5>
+          <!--headin5_amrc-->
+          <p *ngIf="CompId!=3" class="mb10">Marbella For Food Industry</p>
+          <p *ngIf="CompId==3" class="mb10">ALFA Logistics</p>
+          <p><i class="fa fa-location-arrow"></i> <a href="https://www.google.com/maps/place/Marbella+For+Food+Industries/@29.9039403,30.907329,17z/data=!3m1!4b1!4m5!3m4!1s0x1458557a54c1b095:0xe042f4b519da797e!8m2!3d29.9039868!4d30.905102">5th Industry District,<br> 6th of October, Giza, Egypt</a> </p>
+          <p><i class="fa fa-phone"></i>  +20 100 000 0033  </p>
+          <p><i class="fa fa fa-envelope"></i> info@example.com  </p>
+        </div>
+        <div class=" col-12 col-md-8 d-flex align-items-center justify-content-center">
+          <div class="container ">
+            <ul class="foote_bottom_ul_amrc ms-0 ms-md-auto">
+            <li class="d-block d-md-inline"><a class="cursor-pointer" href="http://webenlance.com">Home</a></li>
+            <li class="d-block d-md-inline"><a class="cursor-pointer" (click)="this.router.navigate(['/profile']);scrollTop();">Profile</a></li>
+            <li class="d-block d-md-inline"><a class="cursor-pointer"(click)="this.router.navigate(['/HR/leaveRequest']);scrollTop();">Leave Request</a></li>
+            <li class="d-block d-md-inline"><a class="cursor-pointer" (click)="this.router.navigate(['/profile/myAttendance']);scrollTop();">My Attendance</a></li>
+            <li *ngIf="getManagerPermissions()" class="d-block d-md-inline"><a class="cursor-pointer" (click)="this.router.navigate(['/profile/myTeamAttendence']);scrollTop();">My Team Attendance</a></li>
+            <li class="d-block d-md-inline"><a class="cursor-pointer" (click)="logout()">Logout</a></li>
+            </ul>
+            <!--foote_bottom_ul_amrc ends here-->
+            <p class="text-center">Copyright @2022 | Designed by <a href="">Marbella <span>IT Team</span></a></p>
+
+            <!--social_footer_ul ends here-->
+            </div>
+        </div>
+      </div>
+  </div>
+
+
+
+
+
+    </footer>

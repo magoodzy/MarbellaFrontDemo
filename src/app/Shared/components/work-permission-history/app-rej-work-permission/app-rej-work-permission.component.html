@@ -1,0 +1,31 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <h5 class="text-primary p-3"> Work Permission Action </h5>
+      <hr>
+    </div>
+    <div class="col-12 my-4">
+      <div class="mb-3">
+        <label class="form-label">{{data.newType}} Instructions </label>
+        <textarea class="form-control" [value]="data.newType=='QA'?data.qaInstructions:data.hseInstructions" #instructions></textarea>
+      </div>
+      <div class="d-flex align-items-center justify-content-evenly">
+        <ng-container *ngIf="data.newType=='QA'">
+          <button (click)="appRej(data,'QA','Approved',instructions.value)" class="btn btn-outline-success">QA Approve</button>
+          <button (click)="appRej(data,'QA','Pending',instructions.value)" class="btn btn-outline-secondary">QA Pend</button>
+          <button (click)="appRej(data,'QA','Rejected',instructions.value)" class="btn btn-outline-danger">QA Reject</button>
+          <button (click)="appRej(data,'QA','Closed',instructions.value)" class="btn btn-outline-danger">QA Close</button>
+        </ng-container>
+        <ng-container *ngIf="data.newType=='HSE'">
+          <button (click)="appRej(data,'HSE','Approved',instructions.value)" class="btn btn-outline-success">HSE Approve</button>
+          <button (click)="appRej(data,'HSE','Pending',instructions.value)" class="btn btn-outline-secondary">HSE Pend</button>
+          <button (click)="appRej(data,'HSE','Rejected',instructions.value)" class="btn btn-outline-danger">HSE Reject</button>
+          <button (click)="appRej(data,'HSE','Closed',instructions.value)" class="btn btn-outline-danger">HSE Close</button>
+        </ng-container>
+
+      </div>
+      <p class="text-center mt-2" style="font-size: 11px;">{{errMsg}}</p>
+
+    </div>
+  </div>
+</div>

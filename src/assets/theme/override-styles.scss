@@ -1,0 +1,250 @@
+.mat-focus-indicator::before{
+    border: none !important;
+}
+
+app-calende,app-attendance-today,app-attendance-report,app-generic-admin-situation,
+app-my-admin-situation,app-anomly-attendance,app-overtime-history,app-current-month-admin-situation,
+app-history-admin-situation,app-equip-permission,app-srfs,app-screening-questions,app-companies-incentive,app-morale-history,app-trans-allowance-history,app-hrtickets-history,app-team-payroll,app-salary-details,app-all-trials,
+app-all-products,
+app-clearance-history,
+app-work-permission-history,app-pdp-analysis,app-pdp-evaluation,app-all-pdpdata,app-team-pdp,app-team-attendance,app-team-admin-situation,app-pohistory,app-scan-qr,app-projects-history,app-tickets-history,app-five-days-absence,app-team-overtime,app-incentive-form,app-transportation-attendance,app-internal-transport-history,app-drivers-masterdata,app-renewal-contracts-history,app-payroll{
+    .p-datepicker{
+      min-width: 26rem !important;
+        height: max-content;
+    }
+    .p-inputtext{
+        padding: 6px 17px;
+    }
+}
+
+// app-attendance-today{
+//   .p-inputtext{
+
+//   }
+// }
+
+
+app-especial-vacation{
+    .mat-form-field-wrapper{
+        padding-bottom: 0px !important;
+    }
+    .dropdown-btn{
+        padding: 1rem !important;
+        background-color: white;
+        border-color: #dce1e5 !important;
+    }
+    .dropdown-multiselect__caret{
+        height: 100% !important;
+    }
+}
+
+app-vacation,app-especial-vacation,app-upnormal-bulk{
+
+    .p-calendar{
+        width: 100% ;
+     .p-inputtext{
+      padding: 0.25rem;
+     }
+     .p-datepicker{
+      min-width: 75%  !important;
+
+     }
+    }
+
+}
+app-register-new-user{
+    .mat-form-field-infix{
+        font-size: 14px;
+    }
+    .mat-form-field-wrapper{
+        padding-bottom: 0px !important;
+    }
+}
+    .mat-button-wrapper{
+        color: blue;
+    }
+    .mat-snack-bar-container{
+        background-color: white !important;
+        color: green !important;
+    }
+
+app-payroll{
+    .p-datatable-table{
+        width: max-content ;
+      }
+}
+
+app-edit-vac-record{
+  .selected-item{
+    max-width: 100% !important;
+    background-color: #29378f !important;
+  }
+
+
+}
+
+.multiselect-item-checkbox input[type=checkbox] + div{
+  font-size: 11px !important;
+}
+app-all-records{
+    .p-datatable-thead{
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 1 !important;
+      }
+      .p-datatable-wrapper{
+        height: 40rem !important;
+    }
+}
+app-scan-qr{
+  video{
+    width: 100%  !important;
+  }
+}
+
+app-all-employees,
+app-my-employees,
+app-calender,
+app-team-penalities,
+app-incentive-history,
+app-managers-attendance,
+app-leave-history,
+app-punish-history,
+app-sick-leave-history,
+app-team-vacations,
+app-attendance-report,
+app-companies-incentive,app-morale-history,app-trans-allowance-history,app-hrtickets-history,app-team-payroll,app-salary-details,app-all-trials,
+app-all-products,
+app-clearance-history,
+app-work-permission-history,app-pdp-analysis,app-pdp-evaluation,app-all-pdpdata,app-team-pdp,app-team-attendance,app-team-admin-situation,app-pohistory,app-scan-qr,app-projects-history,app-tickets-history,app-five-days-absence,app-team-overtime,app-incentive-form,app-transportation-attendance,app-internal-transport-history,app-renewal-contracts-history,app-drivers-masterdata,
+app-payroll,
+app-loan-history,
+app-anomly-attendance,
+app-overtime-history,
+app-generic-admin-situation,
+app-my-admin-situation,
+app-current-month-admin-situation,
+app-history-admin-situation,
+app-equip-permission,
+app-attendance-report,
+app-srfs,
+app-screening-questions{
+
+    .p-datatable-table {
+        width: max-content;
+    }
+    .p-datatable-thead{
+      position: sticky !important;
+      top: 0 !important;
+      z-index: 1 !important;
+    }
+    .p-datatable-tbody{
+      height: 4rem !important;
+  }
+
+    .p-sortable-column-icon{
+        font-size: 10px ;
+      }
+      .pi-filter-icon{
+          font-size: 10px;
+      }
+      td{
+        padding: 0.4rem 0.4rem !important;
+        font-size: 9px !important;
+      }
+      th{
+          padding: 1rem 0.4rem !important;
+          font-size: 9px !important;
+      }
+}
+app-companies-incentive,app-morale-history,app-trans-allowance-history,app-hrtickets-history,app-team-payroll,app-salary-details,app-all-trials,
+app-all-products,
+app-clearance-history,
+app-work-permission-history,app-pdp-analysis,app-pdp-evaluation,app-all-pdpdata,app-team-pdp,app-team-attendance,app-team-admin-situation,app-pohistory,app-scan-qr,app-projects-history,app-tickets-history,app-five-days-absence,app-team-overtime,app-incentive-form,app-transportation-attendance,app-internal-transport-history,app-drivers-masterdata,app-renewal-contracts-history,app-payroll,
+app-generic-admin-situation,app-current-month-admin-situation,
+app-history-admin-situation{
+  .p-datatable-table {
+    width: max-content;
+}
+.p-datatable-thead{
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1 !important;
+}
+.p-datatable-tbody{
+  height: 4rem !important;
+}
+.p-datatable-wrapper{
+  height: 40rem !important;
+}
+.p-sortable-column-icon{
+    font-size: 10px ;
+  }
+  .pi-filter-icon{
+      font-size: 10px;
+  }
+  td{
+    padding: 0.4rem 0.4rem !important;
+    font-size: 9px !important;
+  }
+  th{
+      padding: 1rem 0.4rem !important;
+      font-size: 9px !important;
+  }
+}
+app-attendance-report,app-generic-admin-situation,app-current-month-admin-situation,
+app-companies-incentive,app-morale-history,app-trans-allowance-history,app-hrtickets-history,app-team-payroll,app-salary-details,app-all-trials,
+app-all-products,
+app-clearance-history,
+app-work-permission-history,app-pdp-analysis,app-pdp-evaluation,app-all-pdpdata,app-team-pdp,app-team-attendance,app-team-admin-situation,app-pohistory,app-scan-qr,app-projects-history,app-tickets-history,app-five-days-absence,app-team-overtime,app-incentive-form,app-transportation-attendance,app-internal-transport-history,app-drivers-masterdata,app-renewal-contracts-history,app-payroll,
+app-history-admin-situation,
+  app-my-admin-situation{
+    td{
+        padding: 0.4rem 0.4rem !important;
+        font-size: 14px !important;
+        text-align: center !important;
+      }
+      th{
+        text-align: center !important;
+      }
+}
+
+app-all-employees{
+  .p-datatable-thead{
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1 !important;
+  }
+    .p-datatable-tbody{
+        height: 4rem !important;
+    }
+    .p-datatable-wrapper{
+        height: 40rem !important;
+    }
+}
+
+app-payroll{
+    .p-sortable-column-icon{
+        font-size: 10px ;
+      }
+      .pi-filter-icon{
+          font-size: 10px;
+      }
+}
+
+app-absence-report{
+    .p-calendar .p-datepicker{
+        width: 22rem;
+    }
+}
+
+app-leave-history,app-sick-leave-history,app-team-vacations,app-managers-attendance{
+  .p-inputtext{
+    font-size: 12px !important;
+    padding: 0.5rem .5rem  !important;
+  }
+  .p-calendar .p-datepicker{
+    min-width: 180%;
+  }
+}
+

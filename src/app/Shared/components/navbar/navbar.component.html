@@ -1,0 +1,465 @@
+
+
+<nav class="navbar navbar-expand-xl navbar-light">
+    <div class="container-fluid">
+      <div class="row w-100">
+        <div class="col-md-2"></div>
+
+        <div class="col-8 d-flex align-items-center justify-content-center">
+          <span *ngIf="!isHome" class="me-2">
+            <svg  (click)="backHistory()" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-bar-left backBtn" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5ZM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5Z"/>
+            </svg>
+          </span>
+            <img (click)="router.navigate(['/home'])" *ngIf="CompId!=3" class="cursor-pointer" width="60" src="./../../../../assets/images/Marbella-For-Food-Industry-Egypt-5667-1585127833 (1).png">
+            <img (click)="router.navigate(['/home'])" *ngIf="CompId==3" class="cursor-pointer" width="60" src="./../../../../assets/images/alfa.png">
+
+          <div *ngIf="isLoading | async" class="ms-2 d-flex justify-content-center">
+            <div style="color: #29378f !important;font-size: 9px; width: 1.5rem;height:1.5rem" class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-4 col-md-2 d-flex align-items-center justify-content-end">
+          <div style="position:relative">
+            <a class="nav-link dropdown-toggle p-0" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <img  width="20px" height="20px" style="border-radius: 50%; object-fit: cover;" src="./../../../../assets/resources/{{userImg?userImg:'No-photo-m.png'}}">
+
+            </a>
+            <ul style="    left: -7rem;" class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li>
+                <div class="d-flex align-items-center justify-content-center">
+                  <!-- <img  width="5rem" height="5rem" style="border-radius: 50%; object-fit: cover;" src="./../../../../assets/resources/{{userImg?userImg:'No-photo-m.png'}}"> -->
+                  <img  width="5rem" height="5rem" style="border-radius: 50%;width: 5rem;height:5rem; object-fit: cover;" src="./../../../../assets/resources/{{userImg?userImg:'No-photo-m.png'}}">
+
+                </div>
+                <p style="font-size: 12px;" class="text-center m-0"><b>{{userName}}</b></p>
+                <p style="font-size: 10px;" style="font-weight: lighter;  font-size: 12px;" class="text-center text-primary m-0">{{jobTitleName}}</p>
+                <p style="font-size: 10px;" style="font-weight: lighter; color: gray; font-size: 12px;" class="text-center ">{{empCode}}</p>
+              </li>
+              <li><a class="dropdown-item" (click)="this.router.navigate(['/profile']);collapse();">Profile <br><span class="arabicFont">صفحتي الشخصية</span></a></li>
+              <li><a class="dropdown-item" (click)="this.router.navigate(['/profile/myRequests']);collapse();">My Requests <br><span class="arabicFont">طلباتي</span></a></li>
+              <li><a class="dropdown-item" (click)="this.router.navigate(['/profile/myPenalities']);collapse();">My Penalities <br><span class="arabicFont">جزاءاتي</span></a></li>
+              <li><a class="dropdown-item" (click)="this.router.navigate(['/profile/myAttendance']);collapse();">My Attendance <br><span class="arabicFont">حضوري</span></a></li>
+              <li><a class="dropdown-item" (click)="this.router.navigate(['/profile/myAdminSituation']);collapse();">My Admin Situation<br><span class="arabicFont">موقفي الإداري</span></a></li>
+              <li *ngIf="permissionService.getHRSectionHeads(dept,hrCode,level)" ><a class="dropdown-item" (click)="this.router.navigate(['/profile/companiesIncentive']);collapse();">Companies Incentives<br><span class="arabicFont">حوافز الشركات</span></a></li>
+
+
+              <li *ngIf="permissionService.getManagerPermissions(hrCode,dept,level)">
+                <div class="dropDown">
+                <a  class="dropdown-item dropbtn" >My Team<br><span class="arabicFont">فريقي</span></a>
+                <div  class="dropDown-content profileContent">
+                  <a  (click)="this.router.navigate(['/profile/myTeamAttendence']);collapse()">Attendance - <span class="arabicFont">الحضور</span></a>
+                  <a  (click)="this.router.navigate(['/profile/myTeamVacation']);collapse()">Vacations - <span class="arabicFont">الأجازات</span></a>
+                  <a  (click)="this.router.navigate(['/profile/myTeamOvertime']);collapse()">Overtime - <span class="arabicFont">أمور التكليف</span></a>
+                  <a  (click)="this.router.navigate(['/profile/myTeamAdminSituation']);collapse()">Admin Situation - <span class="arabicFont">الموقف الاداري</span></a>
+
+                  <a *ngIf="permissionService.getManagerPermissions(hrCode,dept,level)" (click)="this.router.navigate(['/profile/myTeamIncentive']);collapse()">Incentives - <span class="arabicFont">الحوافز</span></a>
+                  <a *ngIf="permissionService.getIncentiveHistoryPermission(hrCode)" (click)="this.router.navigate(['/profile/myTeamIncentiveHistory']);collapse()">Incentives History - <span class="arabicFont">تاريخ الحوافز</span></a>
+                  <a  (click)="this.router.navigate(['/profile/myTeamPenalities']);collapse()">Penalities - <span class="arabicFont">الجــزاءات</span></a>
+
+                </div>
+              </div>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" (click)="logout()">Logout<br><span class="arabicFont">تسجيل الخروج</span></a></li>
+            </ul>
+          </div>
+
+
+        </div>
+      </div>
+
+    </div>
+</nav>
+      <!-- <div  class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active " aria-current="page" href="/home">Home</a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle " id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">HR</a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><div class="dropDown">
+                  <button   class="dropbtn">Personnel<br><span class="arabicFont">شؤون الموظفين</span></button>
+                  <div  class="dropDown-content">
+                <button (click)="this.router.navigate(['/HR/leaveRequest']);"   class="dropbtn">Leave Request<br><span class="arabicFont">طلب أجازة</span></button>
+                    <a *ngIf="permissionService.getHRPermissions(dept,hrCode)" (click)="this.router.navigate(['/HR/allLeaveRecords'])">Leave Balance<br><span class="arabicFont">رصيد الأجازات</span></a>
+                    <a *ngIf="permissionService.getHRPermissions(dept,hrCode)" (click)="this.router.navigate(['/HR/masterData'])">Master Data <br><span class="arabicFont">بيانات الموظفين</span></a>
+                    <a *ngIf="permissionService.getTeamAttendancePermission(hrCode,dept,level)" (click)="this.router.navigate(['/HR/teamAttendence'])">Team Attendance<br><span class="arabicFont">حضور الموظفين</span></a>
+                    <a *ngIf="permissionService.getHRPermissions(dept,hrCode)" (click)="this.router.navigate(['/HR/RenewalContractsHistory'])">Renewal Contracts History <br><span class="arabicFont">سجل تجديد العقود</span></a>
+                    <a *ngIf="permissionService.getHrManagerPermissions(hrCode,dept,level)" (click)="this.router.navigate(['/HR/todayAttendance'])">ManPower<br><span class="arabicFont">الحضور اليومي للموظفين</span></a>
+                    <a *ngIf="permissionService.getHRPermissions(dept,hrCode)" (click)="this.router.navigate(['/HR/addNewEmployee'])">Create New User<br><span class="arabicFont">تسجيل موظف جديد</span></a>
+                    <a (click)="this.router.navigate(['/HR/overtimeRequest'])">Overtime Request<br><span class="arabicFont">أمر تكليف</span></a>
+                    <a *ngIf="permissionService.getOverTimeHistoryPermission(hrCode,dept)" (click)="this.router.navigate(['/HR/overtimeHistory'])">Overtime History<br><span class="arabicFont">سجل أمر التكليف</span></a>
+                    <a *ngIf="permissionService.getHrManagerPermissions(hrCode,dept,level)" (click)="this.router.navigate(['/HR/penaltyForm'])">Penalty Request<br><span class="arabicFont">طلب جزاء</span></a>
+                    <a *ngIf="permissionService.getHRPermissions(dept,hrCode)" (click)="this.router.navigate(['/HR/penaltyHistory'])">Penalty History<br><span class="arabicFont">سجل الجزاءات</span></a>
+                    <a *ngIf="permissionService.getManagerPermissions(hrCode,dept,level)" (click)="this.router.navigate(['/HR/addIncentive'])">Incentive Request<br><span class="arabicFont">طلب حافز</span></a>
+                    <a *ngIf="permissionService.getAllPermissions(hrCode)" (click)="this.router.navigate(['/HR/importData'])">Import Data<br><span class="arabicFont">رفع البيانات</span></a>
+                    <a *ngIf="permissionService.getHRSectionHeads(dept,hrCode,level)" (click)="this.router.navigate(['/IT/dataViolation'])">Masterdata Violation<br><span class="arabicFont">اخطاء بيانات الموظفين</span></a>
+                    <a *ngIf="permissionService.getHRPermissions(dept,hrCode)" (click)="this.router.navigate(['/HR/addHolidayAgenda'])">Agenda Holiday Form<br><span class="arabicFont">أضافة أيام العطلات</span></a>
+
+                  </div>
+                </div></li>
+                <li *ngIf="permissionService.getAllPermissions(hrCode)"><a class="dropdown-item" (click)="this.router.navigate(['/HR/dashboard'])">HR Dashboard <br> <span class="arabicFont">تحليل البيانات</span></a></li>
+                <li>
+                  <div class="dropDown">
+                  <button   class="dropbtn">Payroll<br> <span class="arabicFont">كشف رواتب</span></button>
+                  <div  class="dropDown-content">
+                    <a *ngIf="permissionService.getSecretPermission(hrCode)"  (click)="this.router.navigate(['/HR/payroll'])">Payroll<br> <span class="arabicFont">كشف رواتب</span></a>
+                    <a *ngIf="permissionService.getTeamAttendancePermission(hrCode,dept,level)" (click)="this.router.navigate(['/HR/administrativeSituation'])">Adminstrative Situation<br> <span class="arabicFont">الموقف الإداري</span></a>
+                    <a *ngIf="permissionService.getTeamAttendancePermission(hrCode,dept,level)" (click)="this.router.navigate(['/HR/historyAdminSituation'])">Admin Sit. History<br> <span class="arabicFont">سجل الموقف الإداري</span></a>
+                    <a *ngIf="permissionService.getSaveAttendancePermission(hrCode,dept,level)" (click)="this.router.navigate(['/HR/saveAttendance'])">Save Attendance<br> <span class="arabicFont">حفظ سجلات الحضور</span></a>
+                    <a *ngIf="permissionService.getAllPermissions(hrCode)" (click)="this.router.navigate(['/HR/dynamicAllowance'])">Add Allowances<br> <span class="arabicFont">أضافة البدلات</span></a>
+                  </div>
+                </div></li>
+                <li>
+                  <div class="dropDown">
+                    <button   class="dropbtn">OD<br> <span class="arabicFont">التطوير التنظيمي</span></button>
+                    <div  class="dropDown-content">
+                      <a (click)="this.router.navigate(['/HR/jobDescription'])">Job Description <br> <span class="arabicFont">الوصـف الوظيفـي</span></a>
+                      <li><a class="dropdown-item" (click)="this.router.navigate(['/HR/organizationChart'])">Organization Chart <br> <span class="arabicFont">هيكل المؤسســة</span></a></li>
+                      <a (click)="this.router.navigate(['/HR/gradingMethodolgy'])">Grading Methodology <br> <span class="arabicFont">التدرج الوظيفي</span></a>
+
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="dropDown">
+                  <button   class="dropbtn">Talent Management<br> <span class="arabicFont">إدارة المواهب</span></button>
+                  <div  class="dropDown-content">
+                    <a  (click)="this.router.navigate(['/HR/teamRewards'])">Team Rewards<br><span class="arabicFont">جوائز الفريـق</span></a>
+                  </div>
+                </div></li>
+                <li>
+                  <div class="dropDown">
+                  <button   class="dropbtn">Reqruitment<br> <span class="arabicFont">إدارة التوظيف</span></button>
+                  <div  class="dropDown-content">
+                    <a *ngIf="permissionService.getHRRecruitersPermissions(hrCode)" (click)="this.router.navigate(['/HR/applyingForms'])">Applying Forms<br><span class="arabicFont">طلبات التقديم</span></a>
+
+                    <a  *ngIf="permissionService.getHrManagerPermissions(hrCode,dept,level)" (click)="this.router.navigate(['/HR/srfRequest'])">Request for Job Fulfillment<br><span class="arabicFont">طلب إحتياجات وظيفية</span></a>
+                    <a *ngIf="permissionService.getHRRecruitersPermissions(hrCode)" (click)="this.router.navigate(['/HR/SRFs'])">All SRFs<br><span class="arabicFont">سجل طلبات الإحتياج الوظيفي</span></a>
+                    <a *ngIf="permissionService.getHRRecruitersPermissions(hrCode)" (click)="this.router.navigate(['/HR/screeningQuestions'])">Screen Questions<br><span class="arabicFont">اسئلة التقديم للوظيفة</span></a>
+                    <a *ngIf="permissionService.getHRRecruitersPermissions(hrCode)" (click)="this.router.navigate(['/HR/AddIQEnglishQuestions'])">English - IQ Questions<br><span class="arabicFont">اسئلة اللغة والذكاء</span></a>
+                    <a *ngIf="permissionService.getHigherManagersOnlyPermission(hrCode,level)" (click)="this.router.navigate(['/HR/ManagersToHandleForms'])">Managers To Handle Forms<br><span class="arabicFont">طلبات التقديم للمديرين</span></a>
+
+                  </div>
+                </div>
+              </li>
+              <li *ngIf="permissionService.getHRSectionHeads(dept,hrCode,level)">
+                <div class="dropDown">
+                <button   class="dropbtn">PDP <br><span class="arabicFont">الزيادة السنوية</span></button>
+                <div  class="dropDown-content">
+                  <a  (click)="this.router.navigate(['/HR/TeamPDPData'])">PDP Team Data<br><span class="arabicFont">بيانات الموظفين للزيادة السنوية</span></a>
+                  <a *ngIf="permissionService.getAllPermissions(hrCode)" (click)="this.router.navigate(['/HR/PDPSlides'])">PDP Final Stage<br><span class="arabicFont">المرحلة الأخيرة من الزيادة السنوية</span></a>
+                  <a *ngIf="permissionService.getHRSectionHeads(dept,hrCode,level)" (click)="this.router.navigate(['/HR/AllPDPData'])">All PDP Data<br><span class="arabicFont">كل بيانات الموظفين للزيادة</span></a>
+                  <a *ngIf="permissionService.getHRSectionHeads(dept,hrCode,level)" (click)="this.router.navigate(['/HR/PDPTracking'])">PDP Managers Tracking<br><span class="arabicFont">تتبع تسجيل المديرين</span></a>
+
+                </div>
+              </div>
+            </li>
+
+
+                <li>
+                <li *ngIf="permissionService.getHRSectionHeads(dept,hrCode,level)" (click)="this.router.navigate(['/HR/addAnnouncement'])"><a class="dropdown-item">Add Announcement <br> <span class="arabicFont">إضافة إعلان</span></a></li>
+                <li  (click)="this.router.navigate(['/HR/hrHyperLinks'])"><a class="dropdown-item">HR Hyperlinks Map<br> <span class="arabicFont">خريطة السيستم</span></a></li>
+                <li *ngIf="permissionService.getHrManagerPermissions(hrCode,dept,level)">
+                  <div class="dropDown">
+                  <button   class="dropbtn">Best Employees Vote<br> <span class="arabicFont">التصويت للأفضل</span></button>
+                  <div  class="dropDown-content">
+                    <a *ngIf="permissionService.getSaveAttendancePermission(hrCode,dept,level)" (click)="this.router.navigate(['/HR/AddManagersForVote'])">Managers To Vote<br><span class="arabicFont">أضافة المديرين للتصويت</span></a>
+                    <a *ngIf="permissionService.getManagerPermissions(hrCode,dept,level)" (click)="this.router.navigate(['/HR/VoteForm'])">Vote Form<br><span class="arabicFont">فورم التصويت</span></a>
+                    <a *ngIf="permissionService.getAllPermissions(hrCode)" (click)="this.router.navigate(['/HR/BestEmployeesSelection'])">Best Employees Selection<br><span class="arabicFont">اختيار افضل موظفين</span></a>
+                  </div>
+                </div></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle " id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">IT</a>
+            <ul style="left: -10px;" class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a (click)="this.router.navigate(['/IT/newTicket'])" class="dropdown-item">New Ticket<br><span class="arabicFont">طلب حل مشكلة</span></a></li>
+                <li *ngIf="permissionService.getItPermissions(hrCode,dept)"><a (click)="this.router.navigate(['/IT/projects'])" class="dropdown-item">Add Project<br><span class="arabicFont">أضافة مشروع </span></a></li>
+                <li *ngIf="permissionService.getItPermissions(hrCode,dept)"><a (click)="this.router.navigate(['/IT/AddPO'])" class="dropdown-item">Add PO<br><span class="arabicFont">أضافة طلب شواء </span></a></li>
+
+                <li><a *ngIf="permissionService.getAllPermissions(hrCode)"  (click)="this.router.navigate(['/IT/PreMainTickets'])" class="dropdown-item">New Preventive Maintenance Task <br><span class="arabicFont">طلب حل مشكلة دورية</span></a></li>
+                <li><a (click)="this.router.navigate(['/IT/suggestIdea'])" class="dropdown-item">Have an Idea To Suggest?<br><span class="arabicFont">لديك فكرة لتقترحها؟</span></a></li>
+                <li><a (click)="this.router.navigate(['/IT/portalOrientation'])" class="dropdown-item">Portal Orientation<br><span class="arabicFont">شرح النظام الإداري</span></a></li>
+                <li *ngIf="permissionService.getItPermissions(hrCode,dept)"><a (click)="this.router.navigate(['/IT/TicketsAdminPortal'])" class="dropdown-item">Ticket Admin Portal<br><span class="arabicFont">نظام حلول المشاكل</span></a></li>
+                <li *ngIf="permissionService.getItPermissions(hrCode,dept)"><div class="dropDown">
+                  <button #admin  class="dropbtn">Admin Portal<br><span class="arabicFont">بوابة الإدارة</span></button>
+                  <div *ngIf="admin.click"  class="dropDown-content">
+                    <a *ngIf="permissionService.getItPermissions(hrCode,dept)" (click)="this.router.navigate(['/IT/resetPassword'])">Reset Password<br><span class="arabicFont">أعادة تعيين كلمة السر</span></a>
+                    <a *ngIf="permissionService.getItPermissions(hrCode,dept)" (click)="this.router.navigate(['/IT/TicketsHandlers'])">Tickets Handlers<br><span class="arabicFont">موظفين حلول المشاكل</span></a>
+                    <a *ngIf="permissionService.getAllPermissions(hrCode)" (click)="this.router.navigate(['/IT/addPermissions'])">Add Permissions<br><span class="arabicFont">أضافة تصريح دخول</span></a>
+                    <a *ngIf="permissionService.getAllPermissions(hrCode)" (click)="this.router.navigate(['/IT/editVacationRecord'])">Edit Vacation Records<br><span class="arabicFont">تعديل سجل الأجازات</span></a>
+                    <a *ngIf="permissionService.getAllPermissions(hrCode)" (click)="this.router.navigate(['/IT/incentiveManagers'])">Add Incentive Managers<br><span class="arabicFont">أضافة مديرين الحوافز</span></a>
+                    <a *ngIf="permissionService.getAllPermissions(hrCode)" (click)="this.router.navigate(['/IT/PDPManagers'])">Add PDP Managers<br><span class="arabicFont">أضافة مديرين للزيادة السنوية</span></a>
+                    <a *ngIf="permissionService.getBulkEditPermission(hrCode)" (click)="this.router.navigate(['/IT/loansManagers'])">Add Loans Managers<br><span class="arabicFont">أضافة مديرين السلف</span></a>
+                    <a *ngIf="permissionService.getBulkEditPermission(hrCode)" (click)="this.router.navigate(['/IT/AddManagerAdmin'])">Add Admin Situation Managers<br><span class="arabicFont">أضافة مديرين الموقف الإداري</span></a>
+                    <a *ngIf="permissionService.getBulkEditPermission(hrCode)" (click)="this.router.navigate(['/IT/bulkEdit'])">Bulk Edit Employees<br><span class="arabicFont">تعديل جماعي للموظفين</span></a>
+                    <a *ngIf="permissionService.getBulkEditPermission(hrCode)" (click)="this.router.navigate(['/IT/dataViolation'])">Masterdata Violation<br><span class="arabicFont">اخطاء بيانات الموظفين</span></a>
+                  </div>
+                </div></li>
+
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Finance</a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li >
+                  <a *ngIf="permissionService.getAllPermissions(hrCode)"  class="dropdown-item" (click)="this.router.navigate(['/finance/loanRequest'])">Loan Request<br><span class="arabicFont">طلب سلفــة</span></a>
+                  <a *ngIf="permissionService.getSalaryDetailsPermissions(hrCode,dept,level)" class="dropdown-item" (click)="this.router.navigate(['/finance/loanRequest'])">Salary Details<br><span class="arabicFont">المرتبات</span></a>
+                </li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Security</a>
+            <ul *ngIf="permissionService.getSecurityPermissions(dept,hrCode)" style="left: -10px;min-width: 7rem;" class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a *ngIf="permissionService.getAllPermissions(hrCode)" (click)="this.router.navigate(['/security/RequestInternalTransportation'])" class="dropdown-item">Request Internal Transportation<br><span class="arabicFont">طلب عربية نقل داخلي</span></a></li>
+                <li><a *ngIf="permissionService.getAllPermissions(hrCode)" (click)="this.router.navigate(['/security/requestPermission'])" class="dropdown-item">Request Permission<br><span class="arabicFont">طلب أذن دخول/خروج</span></a></li>
+                <li><a (click)="this.router.navigate(['/security/peoplePermission'])" class="dropdown-item">People<br><span class="arabicFont">أشخاص</span></a></li>
+                <li><a *ngIf="permissionService.getAllPermissions(hrCode)" (click)="this.router.navigate(['/security/equipmentPermission'])" class="dropdown-item">Equipment<br><span class="arabicFont">معدات</span></a></li>
+                <li><a *ngIf="permissionService.getFleetPermission(hrCode)" (click)="this.router.navigate(['/security/transportationToShift'])" class="dropdown-item">Transportation To Shift<br><span class="arabicFont">سيارات النقل بالورديات</span></a></li>
+
+                <li><a *ngIf="permissionService.getSecurityPermissions(dept,hrCode)" (click)="this.router.navigate(['/security/scanQRCode'])" class="dropdown-item">Submitting Trans. Att.<br><span class="arabicFont">تسجيل حضـــور السيــارات</span></a></li>
+                <li><a *ngIf="permissionService.getAllPermissions(hrCode)" (click)="this.router.navigate(['/security/transportationAttendance'])" class="dropdown-item">Transportation Attendance<br><span class="arabicFont"> حضـــور السيــارات</span></a></li>
+                <li><a *ngIf="permissionService.getAllPermissions(hrCode)" (click)="this.router.navigate(['/security/allBusQRCodes'])" class="dropdown-item">Bus QR<br><span class="arabicFont">أكواد السيــارات</span></a></li>
+                <li *ngIf="permissionService.getAllPermissions(hrCode)">
+                  <div class="dropDown">
+                  <button   class="dropbtn">Drivers<br> <span class="arabicFont">السائقين</span></button>
+                  <div  class="dropDown-content">
+                    <a   (click)="this.router.navigate(['/security/driversMasterData'])">Drivers MasterData<br> <span class="arabicFont">بيانات السائقين</span></a>
+                    <a  (click)="this.router.navigate(['/security/addDriver'])">Add Drivers<br> <span class="arabicFont">أضافة سائقين</span></a>
+                  </div>
+                </div></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">CCTV</a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a *ngIf="permissionService.getCCTVPermission(hrCode,dept)" (click)="this.router.navigate(['/security/transportationAttendance'])" class="dropdown-item">Transportation Attendance<br><span class="arabicFont"> حضـــور السيــارات</span></a></li>
+
+            </ul>
+          </li>
+           <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Purchasing</a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <a class="dropdown-item">
+                    Set Action
+                  </a>
+                </li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Admin</a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <a class="dropdown-item">
+                    Set Action
+                  </a>
+                </li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Planning</a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <a class="dropdown-item">
+                    Set Action
+                  </a>
+                </li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">QA</a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <a class="dropdown-item">
+                    Set Action
+                  </a>
+                </li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">QC</a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <a class="dropdown-item">
+                    Set Action
+                  </a>
+                </li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Mentainance</a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <a class="dropdown-item">
+                    Set Action
+                  </a>
+                </li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Production</a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <a class="dropdown-item">
+                    Set Action
+                  </a>
+                </li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">HSE</a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <a class="dropdown-item">
+                    Set Action
+                  </a>
+                </li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Warehouse</a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <a class="dropdown-item">
+                    Set Action
+                  </a>
+                </li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">WMS</a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <a class="dropdown-item">
+                    Set Action
+                  </a>
+                </li>
+            </ul>
+          </li>
+
+           <!-- <li *ngFor="let item of linksData" class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{item.name}}
+            </a>
+            <ul  class="dropdown-menu" [style]="item.dropDownStyle" aria-labelledby="navbarDropdown">
+              <li *ngFor="let item2 of item.children">
+                <a *ngIf="!item2.isDropDown" class="dropdown-item" (click)="this.router.navigate([item2.route]);collapse()">{{item2.name}} </a>
+
+                <div *ngIf="item2.isDropDown" class="dropDown">
+                  <button   class="dropbtn">{{item2.name}}</button>
+                <div  class="dropDown-content">
+                  <ng-container *ngFor="let item3 of item2.children">
+                    <ng-container *ngIf="myPermissionStatus(item3.permission)">
+                      <a  (click)="this.router.navigate([item3.route]);collapse()">{{item3.name}}</a>
+                    </ng-container>
+                  </ng-container>
+                  <ng-container *ngFor="let item3 of item2.children">
+                    <ng-container *ngIf="item3.permission == 0">
+                      <a  (click)="this.router.navigate([item3.route]);collapse()">{{item3.name}}</a>
+                    </ng-container>
+                    <ng-container *ngIf="item3.permission == 1">
+                      <a *ngIf="this.getAllPermissions()"  (click)="this.router.navigate([item3.route]);collapse()">{{item3.name}}</a>
+                    </ng-container>
+                    <ng-container *ngIf="item3.permission == 2">
+                      <a *ngIf="getHRPermissions()"  (click)="this.router.navigate([item3.route]);collapse()">{{item3.name}}</a>
+                    </ng-container>
+                    <ng-container *ngIf="item3.permission == 3">
+                      <a *ngIf="getManagerPermissions()"  (click)="this.router.navigate([item3.route]);collapse()">{{item3.name}}</a>
+                    </ng-container>
+                    <ng-container *ngIf="item3.permission == 4">
+                      <a *ngIf="getHrManagerPermissions()"  (click)="this.router.navigate([item3.route]);collapse()">{{item3.name}}</a>
+                    </ng-container>
+                    <ng-container *ngIf="item3.permission == 5">
+                      <a *ngIf="getItPermissions()"  (click)="this.router.navigate([item3.route]);collapse()">{{item3.name}}</a>
+                    </ng-container>
+
+
+                  </ng-container>
+                </div>
+              </div>
+              </li>
+            </ul>
+          </li> -->
+
+
+          <!-- <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle p-2" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <img  width="20px" height="20px" style="border-radius: 50%; object-fit: cover;" src="./../../../../assets/images/{{userImg != null?userImg:'No-photo-m.png'}}">
+
+            </a>
+            <ul style="    left: -7rem;" class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li>
+                <p style="font-size: 12px;" class="text-center m-0"><b>{{userName}}</b></p>
+                <p style="font-size: 10px;" style="font-weight: lighter; color: gray; font-size: 12px;" class="text-center ">{{jobTitleName}}</p>
+              </li>
+              <li><a class="dropdown-item" (click)="this.router.navigate(['/profile']);collapse();">Profile <br><span class="arabicFont">صفحتي الشخصية</span></a></li>
+              <li><a class="dropdown-item" (click)="this.router.navigate(['/profile/myRequests']);collapse();">My Requests <br><span class="arabicFont">طلباتي</span></a></li>
+              <li><a class="dropdown-item" (click)="this.router.navigate(['/profile/myPenalities']);collapse();">My Penalities <br><span class="arabicFont">جزاءاتي</span></a></li>
+              <li><a class="dropdown-item" (click)="this.router.navigate(['/profile/myAttendance']);collapse();">My Attendance <br><span class="arabicFont">حضوري</span></a></li>
+              <li><a class="dropdown-item" (click)="this.router.navigate(['/profile/myAdminSituation']);collapse();">My Admin Situation<br><span class="arabicFont">موقفي الإداري</span></a></li>
+              <li *ngIf="permissionService.getHRSectionHeads(dept,hrCode,level)" ><a class="dropdown-item" (click)="this.router.navigate(['/profile/companiesIncentive']);collapse();">Companies Incentives<br><span class="arabicFont">حوافز الشركات</span></a></li>
+
+
+              <li *ngIf="permissionService.getManagerPermissions(hrCode,dept,level)">
+                <div class="dropDown">
+                <a  class="dropdown-item dropbtn" >My Team<br><span class="arabicFont">فريقي</span></a>
+                <div  class="dropDown-content profileContent">
+                  <a  (click)="this.router.navigate(['/profile/myTeamAttendence']);collapse()">Attendance - <span class="arabicFont">الحضور</span></a>
+                  <a  (click)="this.router.navigate(['/profile/myTeamVacation']);collapse()">Vacations - <span class="arabicFont">الأجازات</span></a>
+                  <a  (click)="this.router.navigate(['/profile/myTeamOvertime']);collapse()">Overtime - <span class="arabicFont">أمور التكليف</span></a>
+                  <a  (click)="this.router.navigate(['/profile/myTeamAdminSituation']);collapse()">Admin Situation - <span class="arabicFont">الموقف الاداري</span></a>
+
+                  <a *ngIf="permissionService.getManagerPermissions(hrCode,dept,level)" (click)="this.router.navigate(['/profile/myTeamIncentive']);collapse()">Incentives - <span class="arabicFont">الحوافز</span></a>
+                  <a *ngIf="permissionService.getIncentiveHistoryPermission(hrCode)" (click)="this.router.navigate(['/profile/myTeamIncentiveHistory']);collapse()">Incentives History - <span class="arabicFont">تاريخ الحوافز</span></a>
+                  <a  (click)="this.router.navigate(['/profile/myTeamPenalities']);collapse()">Penalities - <span class="arabicFont">الجــزاءات</span></a>
+
+                </div>
+              </div>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" (click)="logout()">Logout<br><span class="arabicFont">تسجيل الخروج</span></a></li>
+            </ul>
+          </li>
+
+
+
+
+        </ul> -->
+
+      <!-- </div>
+    </div>
+  </nav> -->
+
+
+
+  <div [hidden]="isPDP" class="ticker-wrap">
+      <div *ngIf="permissionService.getManagerPermissions(hrCode,dept,level)" style="position:absolute;top:0;left:0;height:100%;width: 11rem;z-index:100;border:none;outline:none" class="mb-3">
+        <select style="background:gainsboro; font-size: 10px;"  (change)="getCompId(company.value)"  #company class="arabicFont form-select h-100 w-75" aria-label="Default select example">
+            <option  selected disabled>Choose Company</option>
+            <option *ngFor="let comp of allComps" [value]="comp.id">{{comp.name}}</option>
+            </select>
+      </div>
+
+      <div  class="pot">
+
+
+        <div id="pot" class="m-0 d-flex justify-content-start">
+          <ng-container *ngFor="let announce of allAnnounce">
+            <div style="font-size: 20px;" class="ticker__item arabicFont me-4">{{announce.post}} |</div>
+
+          </ng-container>
+          <div *ngIf="!allAnnounce || allAnnounce.length==0" class="ticker__item arabicFont">No Announcements</div>
+        </div>
+
+      </div>
+  </div>
+
